@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Question 2</title>
+    <style>
+        body {
+            background: #c9f6fe
+        }
+
+        input,
+        select {
+            font-family: Agency FB;
+            border: 2px solid black;
+            background: #ffae78;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+
+        #add {
+            border: 2px solid black;
+            background: #00D024;
+            font-family: Agency FB;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .styling {
+            font-family: Agency FB;
+            text-align: center;
+            width: 60px;
+            height: 30px;
+            margin-top: 20px;
+            padding-top: 15px;
+            padding-bottom: 15px;
+            float: left;
+        }
+    </style>
+</head>
+
+<body>
+    <form>
+        <label for="digit"><span style="font-family: Agency FB " </span> <u>Number of boxes:</u></label> <input
+            type="text" id="quantity" name="quantity">
+        <!-- This button generates boxes -->
+        <button id="add" class="add" type="button" onclick="draw()"><b>Draw</b></button>
+    </form>
+    <!-- This makes our container-->
+    <div id="theDiv"></div>
+    <script>
+
+        const addButton = document.querySelector("add");
+
+        //This function generates the inputted number of boxes, its random color and results in the margin doubling to the left, after each added box.
+        function draw() {
+            document.getElementById("theDiv").innerHTML = "";
+            //This means every time we click the draw button the previous boxes dont remain.
+            let nb = document.getElementById('quantity').value;
+            //Gets the inputter number.
+            const newbox = document.createElement("div");
+            newbox.setAttribute("id", "Div1");
+            var margin = 5;
+            if (nb < 0) {
+                return;
+            }
+            else {
+                for (let i = 1; i <= nb; i++) {
+                    var hue = [Math.floor(Math.random() * 16777215).toString(16)];
+                    var finalhue = "#" + hue;
+                    //This above generates a random colour
+                    const newbox = document.createElement("div");
+                    newbox.setAttribute("id", "Div1");
+                    newbox.classList.add("styling");
+                    newbox.style.background = finalhue;
+                    const rep = document.getElementById("theDiv").appendChild(newbox);
+                    // This puts the numbers in the boxes
+                    newbox.innerHTML = i;
+                    //This deals with the margins
+                    var margin = margin * 2;
+                    newbox.style.marginLeft = margin + 'px';
+
+
+                }
+            }
+        }
+
+
+
+
+
+
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Question 1</title>
+
+  <h1>Kent University Gym</h1>
+
+  <p id=enter> <b> Please input your details below to register for our gym:</b>
+  <p>
+
+
+
+
+    <style>
+      body {
+
+        background: url(" https://i.pinimg.com/originals/1f/3e/99/1f3e99289f623c193c9bc08da48ecfe4.gif"), #c9f6fe;
+        background-repeat: no-repeat;
+        background-size: cover;
+
+      }
+
+      h1 {
+        text-align: top left;
+        font-family: Agency FB;
+        color: #005a6a;
+        text-decoration-line: underline;
+        text-decoration-color: black;
+      }
+
+      #enter {
+        margin-bottom: -2px;
+        font-family: Agency FB;
+        border: 7px double black;
+        background: #ffae78;
+        text-align: center;
+        max-width: 320px;
+        padding-top: 2px;
+        padding-bottom: 2px;
+        border-radius: 6px;
+      }
+
+      input,
+      select {
+        font-family: Agency FB;
+        border: 2px solid black;
+        background: #ffae78;
+        border-radius: 3px;
+        cursor: pointer;
+      }
+
+      #rs {
+        border: 2px solid black;
+        background: red;
+      }
+
+      #del {
+        background: red;
+        border: 3px solid black;
+      }
+
+      #add {
+        border: 2px solid black;
+        background: #00D024;
+      }
+
+      button {
+        font-family: Agency FB;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+
+      table,
+      th,
+      td {
+        border: 2px solid black;
+        ;
+        text-align: center;
+        font-family: Agency FB;
+        border-radius: 4px;
+      }
+
+      tr:nth-of-type(even) {
+        background: #c9f6fe;
+      }
+
+      tr:nth-of-type(odd) {
+        background: #68e8ff;
+      }
+
+      th {
+        background: #ffae78
+      }
+
+      table {
+        background: #009fbb
+      }
+
+      #ft:hover {
+        background-color: #c9f6fe;
+      }
+
+      #inch:hover {
+        background-color: #c9f6fe;
+      }
+
+      #fn:hover {
+        background-color: #c9f6fe;
+      }
+
+      #quantity:hover {
+        background-color: #c9f6fe;
+      }
+
+      #datemin:hover {
+        background-color: #c9f6fe;
+      }
+    </style>
+</head>
+
+<body>
+
+  <form>
+    <!-- Below are our inputs for age,start date,name and height -->
+    <label for="fullname"><span style="font-family: Agency FB " </span> <u>Full Name:</u></label>
+    <input type="text" id="fn" name="fn"><br><br>
+
+    <label for="age"><span style="font-family: Agency FB " </span> <u>Age:</u></label>
+    <input type="number" id="quantity" name="quantity">
+    <br><br>
+
+
+    <label for="height" id="height" name="height"><span style="font-family: Agency FB " </span> <u>Height in feet &
+          inches:</u></label>
+
+    <select heightft="Height in feet" id="ft">
+      <option value="4'">4'</option>
+      <option value="5'">5'</option>
+      <option value="6'">6'</option>
+    </select>
+
+    <select heightinch="Height in ft" id="inch">
+      <option value='0"'>0"</option>
+      <option value='1"'>1"</option>
+      <option value='2"'>2"</option>
+      <option value='3"'>3"</option>
+      <option value='4"'>4"</option>
+      <option value='5"'>5"</option>
+      <option value='6"'>6"</option>
+      <option value='7"'>7"</option>
+      <option value='8"'>8"</option>
+      <option value='9"'>9"</option>
+      <option value='10"'>10"</option>
+      <option value='11"'>11"</option>
+
+    </select> <br><br>
+
+    <label for="startdate" id="startdate" name="startdate"> <span style="font-family: Agency FB" </span> <u>Planned
+          start date:</u></label>
+
+    <input type="date" id="datemin" name="datemin"><br>
+    <br>
+  </form>
+
+  <!-- Here are our reset and add member buttons -->
+  <button id="rs" type="button" onclick="remove()"><b>Reset Form</b></button>
+
+  <button id="add" type="button" onclick="addRow();"><b>Add member</b></button>
+
+
+  <br>
+  <br>
+
+  <!-- This is our table -->
+  <table id="myTable">
+    <caption><b><u>Number of Rows:</b></u>
+      <div id="demo">0 </div>
+    </caption>
+    <tr>
+      <th> Full Name </th>
+      <th> Age </th>
+      <th> Height in feet & inches </th>
+      <th> Planned start date </th>
+    </tr>
+    <tr>
+
+    </tr>
+
+  </table>
+
+  <script>
+    //This gets the table
+    const tableEl = document.getElementsByTagName("table");
+
+    function addRow() {
+
+      if (checkAll() == true) {
+        var fn = document.getElementById('fn').value;
+        var quantity = document.getElementById('quantity').value;
+        var ft = document.getElementById('ft').value;
+        var inch = document.getElementById('inch').value;
+        var datemin = document.getElementById('datemin').value;
+        var table = document.getElementById("myTable");
+        //This inserts rows in the table
+        var row = table.insertRow(1);
+        var cell1 = row.insertCell(0);
+        var cell2 = row.insertCell(1);
+        var cell3 = row.insertCell(2);
+        var cell4 = row.insertCell(3);
+        var cell5 = row.insertCell(4);
+        //This puts values in our cells
+        cell1.innerHTML = fn;
+        cell2.innerHTML = quantity;
+        cell3.innerHTML = ft + inch;
+        cell4.innerHTML = datemin;
+        cell5.innerHTML =
+          tableEl.innerHTML = '<tr><td><button id= "del" onclick="myFunction(this)"><b>Delete Member</b></button> </td></tr>';
+
+        document.getElementById("demo").innerHTML = counted();
+      }
+    }
+
+    function checkAll() {
+      return checkAge(document.getElementById('quantity').value) && checkDate(document.getElementById('datemin').value);
+    }
+    // This function is used for our reset button.
+    function remove() {
+      var fn = document.getElementById('fn').value = "";
+      var quantity = document.getElementById('quantity').value = "";
+      var ft = document.getElementById('ft').value = "";
+      var inch = document.getElementById('inch').value = "";
+      var datemin = document.getElementById('datemin').value = "";
+
+    }
+
+    var count = 0;
+    var counted = (function () {
+      return function () { return count += 1; }
+    })()
+
+    function dec() {
+      return count -= 1;
+    }
+    //This function is used to delete rows
+    function myFunction(arow) {
+      var a = arow.parentNode.parentNode.rowIndex;
+      document.getElementById("myTable").deleteRow(a);
+      document.getElementById("demo").innerHTML = dec();
+    }
+
+    function checkAge(str) {
+      age = parseInt(str);
+      if (isNaN(str) || age < 18 || age > 65) {
+        alert(str + " is not a valid age. Please select an age between 18-65.");
+        return false;
+      }
+      return true;
+    }
+
+    function checkDate(str) {
+      date = new Date(str);
+      const d = new Date(2021, 12, 31);
+      const dd = new Date(2022, 01, 01);
+      if (date.getYear() < d.getYear() || date.getYear() > dd.getYear()) {
+        alert(str + " Not a valid Date. Please select a date in 2022.");
+        return false;
+      }
+      return true;
+    }
+
+  </script>
+
+</body>
+
+</html>

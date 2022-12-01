@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Question 3</title>
+    <style>
+        .board {
+            display: grid;
+            grid-template-columns: repeat(3, auto);
+            row-gap: 15px;
+            column-gap: 15px;
+            justify-content: left;
+            align-content: center;
+            justify-items: center;
+        }
+
+        .opencells {
+            width: 70px;
+            height: 70px;
+            border: 1.5px solid lightgrey;
+            font-size: 50px;
+            justify-content: center;
+            align-items: center;
+            display: flex;
+            cursor: pointer;
+        }
+
+        #theo {
+            text-align: center;
+            font-size: 47px;
+            font-family: Arial;
+            color: green;
+        }
+
+        .noclicks {
+            pointer-events: none;
+        }
+
+        #reset {
+            font-size: 10px;
+            cursor: pointer;
+        }
+
+        #thex {
+            text-align: center;
+            font-size: 47px;
+            font-family: Arial;
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Here is our game playing board with 9 cells -->
+    <div class="board">
+        <div class="opencells"></div>
+        <div class="opencells"></div>
+        <div class="opencells"></div>
+        <div class="opencells"></div>
+        <div class="opencells"></div>
+        <div class="opencells"></div>
+        <div class="opencells"></div>
+        <div class="opencells"></div>
+        <div class="opencells"></div>
+    </div>
+
+    <br><br>
+    <!-- Here is our reset button -->
+    <button id="reset"> Reset </button>
+    <script>
+
+
+        const elements = document.querySelectorAll(".board .opencells");
+        //This gets all our cells, we can see this if we use the console
+        const pO = '<div id= "theo"> O </div>';
+        // An O with appropriate CSS
+        const pX = '<div id= "thex">X</div>';
+        //An X with appropriate CSS
+        let swapGos = true;
+        //swapGos swaps between whos go it is, X or O
+
+
+        elements.forEach(thefunc = function (opencells) {
+            opencells.onclick = function () {
+                // This uses the ternary operator.
+                let swappedTurn = swapGos ? pO : pX;
+                // This adds upon clicking and ensures only one click is allowed.
+                opencells.classList.add("noclicks");
+                opencells.innerHTML = swappedTurn;
+                //swappedTurn returns X or O 
+                swaps();
+
+            }
+
+        });
+
+        function swaps() {
+            swapGos = !swapGos;
+        }
+
+        const resetTheGame = document.getElementById("reset");
+        resetTheGame.addEventListener("click", newGame);
+
+        // this function resets the board
+
+        function newGame() {
+            const col = document.getElementsByClassName("opencells");
+            for (let i = 0; i < 9; i++) {
+                col[i].innerHTML = "";
+            }
+            window.location.reload();
+            //reloads the page restarting the game.
+        }
+
+    </script>
+</body>
+
+</html>

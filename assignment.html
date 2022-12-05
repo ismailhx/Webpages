@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html>
+<!-- A website allowing users to select a region 
+    of interest and then display the details about the countries in the selected region. 
+    
+    The data about all countries are made available to you via a server-side script. -->
+
+<head>
+
+    <style>
+        h4 {
+            font-family: 'Courier New', Courier, monospace;
+            font-size: large;
+            color: #68e8ff;
+            border: 3px solid white;
+            width: 400px;
+            text-align: center;
+            padding-right: 4px;
+        }
+
+        #thePlaces {
+            font-family: 'Courier New', Courier, monospace;
+            font-size: medium;
+            background-color: black;
+            color: white;
+            text-align: center;
+        }
+
+        #myInput,
+        select {
+            font-family: 'Courier New', Courier, monospace;
+            font-size: medium;
+            background-color: black;
+            color: #68e8ff;
+            border: 2px solid white;
+            text-align: center;
+            width: 272px;
+        }
+
+        .MyInput {
+            border-radius: 7px;
+            width: 132px;
+        }
+
+        #ismail {
+            font-family: 'Courier New', Courier, monospace;
+            font-size: x-small;
+            background-color: black;
+            color: white;
+            text-align: right;
+            position: absolute;
+            top: 2px;
+            right: 5px;
+        }
+
+        option:hover {
+            background-color: lightgray;
+        }
+
+        input.MyInput[type="text"]:hover {
+            background-color: #68e8ff;
+        }
+
+        #demo,
+        div {
+            font-family: 'Courier New', Courier, monospace;
+            font-size: medium;
+            color: lightgrey;
+
+        }
+
+        h4:hover .view {
+            border-color: #68e8ff;
+            color: white;
+            display: none;
+        }
+
+        h4:hover .hoverview:before {
+            content: "Displays: Flag Name Capital Population Language ";
+            color: #68e8ff;
+            font-size: small;
+            width: 70px;
+        }
+
+        body {
+            background: url(" https://cdn.dribbble.com/users/504316/screenshots/16847049/globe_loop_v01.gif"), black;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
+        #image {
+            background-color: black;
+            height: 12px;
+            width: 12px;
+            cursor: pointer;
+        }
+
+        table,
+        th,
+        td {
+            text-align: center;
+            font-family: Agency FB;
+            border-radius: 4px;
+        }
+
+        #flags {
+            background-color: black;
+            border-radius: 0;
+            padding-top: 4px;
+            border: 1px solid white;
+
+        }
+
+        tr:nth-of-type(even) {
+            background: #c9f6fe;
+        }
+
+        tr:nth-of-type(odd) {
+            background: #68e8ff;
+        }
+
+        th {
+            background: black;
+            color: white;
+        }
+
+        table {
+            background: black;
+        }
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+
+        $(() => {
+            const url =
+                "https://www.cs.kent.ac.uk/people/staff/yh/co539-A1/countryData.php?regions";
+
+            const cont = "https://www.cs.kent.ac.uk/people/staff/yh/co539-A1/countryData.php?region=";
+
+            $("button").on("click", function () {
+
+                var valued = $("input").val().toLowerCase();
+
+
+
+                $(".choice").filter(function () {
+                    $(this).toggle($("> #n", this).text().toLowerCase().indexOf(valued) > -1
+                    )
+                });
+            });
+
+
+            function addContinents(con) {
+                for (let i = 0; i < con.length; i++) {
+                    Places = con[i];
+
+                    $('select').append(`<option value=${Places}>${Places}</option>`);
+
+                }
+
+            }
+
+
+
+
+
+
+            $("select").click(function () {
+                $("h4").slideToggle();
+                $("#demo").css("color", " #68e8ff");
+                $("#demo").css("text-decoration", " underline white");
+                $("#demo").text("Choose from the following continents:");
+
+
+
+            });
+
+
+
+
+            $.getJSON(url, (data) => {
+                addContinents(data)
+            },
+                "json"
+            )
+                ;
+
+
+
+            $("select").change(function () {
+                $("select option:selected").each(function () { chosenregion = $("select option:selected").text(); });
+                $("table").css('border', '2px solid white');
+                $.getJSON(cont + chosenregion, function (data) {
+                    {
+
+                        $("table").empty();
+                        $("table").append(`<tr>
+      <th> Flag </th>
+      <th> Name </th>
+      <th> Capital </th>
+      <th> Population </th>
+      <th> Langauage </th>
+    </tr>`);
+                        let sum = 0;
+                        for (let i = 0; i < data.length; i++) {
+                            alldata = data[i];
+
+                            sum += alldata.info.population;
+
+                            $("table").append(
+
+                                `
+                                <tr class="choice">
+            <td id = flags><img src ='${alldata.flag}'width="33" height="15"/></td>
+            <td id = n>${alldata.name}</td>
+            <td id = n>${alldata.capital}</td>
+            <td>${alldata.info.population}</td>
+            <td>${alldata.info.language}</td>
+            </tr>
+            
+            `
+
+                            );
+
+
+                        }
+
+                    }
+
+                });
+
+
+
+
+            }
+
+            );
+
+
+
+        });
+
+    </script>
+</head>
+
+<body>
+    <i id="ismail">ii55: Ismail Hendryx</i>
+    <title>Web Development Assignment 1</title>
+    <i>
+        <h4> <span class="view">University of Kent Region Selector</span>
+            <span class="hoverview"></span>
+        </h4>
+    </i>
+
+
+    <i>
+        <p id="demo">
+        </p>
+    </i>
+
+
+    <label for="Continents" id="thePlaces" name="thePlaces"> Continents:</label>
+    <br><br>
+    <input class="MyInput" type="text" placeholder="Search...">
+    <button id=image><img
+            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTrsfCTWk5t9j6icC57_5TwwmGOPEEOHIoRMYnnkQG_yt4IeHR4xMNoOVQt7op4ZfRj_-o&usqp=CAU"
+            id="image"></button>
+
+
+    <br><br>
+    <select id="thetable">
+        <option disabled selected value> -- select a continent -- </option>
+    </select>
+    <br><br>
+    <table></table>
+
+
+</body>
+
+</html>
